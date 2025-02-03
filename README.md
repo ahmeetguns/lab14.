@@ -1,73 +1,57 @@
-# Secure Blog API
+# Spring Security Lab Project
 
-**Developer:** Ahmet Gunes  
-**Student ID:** 487833
+This project demonstrates implementation of security features in a Spring Boot application.
 
-A secure blog API developed with Spring Boot.
+## Project Overview
 
-## Features
-- 🔐 User Authentication and Authorization
-- 📝 Blog Post Management
-- 🏷️ Category System
-- 💬 Comment System
-- 🛡️ Role-based Access Control
+Simple blog application with secure user authentication and data management. Users can create accounts, write blog posts, and interact through comments while maintaining data security.
 
-## Setup & Installation
-1. JDK 17 required
-2. MySQL database must be running
-3. Configure database settings in `application.properties`:
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/blog_db
-   spring.datasource.username=your_username
-   spring.datasource.password=your_password
-   ```
-4. Build project: `mvn clean install`
-5. Run application: `./mvnw spring-boot:run`
+## Core Components
 
-## Quick Start Guide
-1. **Register User**
-   ```bash
-   curl -X POST http://localhost:8080/api/auth/register 
-   -H "Content-Type: application/json" 
-   -d '{"username":"user1", "password":"strong-password", "email":"user@example.com"}'
-   ```
-
-2. **Login**
-   ```bash
-   curl -X POST http://localhost:8080/api/auth/login 
-   -H "Content-Type: application/json" 
-   -d '{"username":"user1", "password":"strong-password"}'
-   ```
-   
-3. **Create Blog Post**
-   ```bash
-   curl -X POST http://localhost:8080/api/posts 
-   -H "Authorization: Bearer TOKEN" 
-   -H "Content-Type: application/json" 
-   -d '{"title":"My First Post", "content":"Hello World!"}'
-   ```
-
-## API Reference
-
-### Authentication
-```
-POST /api/auth/register  - Register new user
-POST /api/auth/login    - Login user
-```
-
-### Blog & Comments
-```
-GET/POST    /api/posts          - List/Create posts
-GET/POST    /api/posts/{id}/comments  - List/Add comments
-```
-
-### Categories (Admin)
-```
-GET/POST    /api/categories     - List/Create categories
-```
-
-## Security Features
-- BCrypt password encryption
+### Security Implementation
+- Spring Security configuration
 - JWT token authentication
-- XSS & CSRF protection
-- Role-based authorization
+- Password encryption (BCrypt)
+- Role-based access control
+
+### Database Structure
+- Users table with encrypted passwords
+- Blog posts with user references
+- Comments linked to posts and users
+- Category management system
+
+### Main Endpoints
+
+Authentication:
+```
+/api/auth/signup  [POST] - Create new account
+/api/auth/signin  [POST] - Get authentication token
+```
+
+Content Management:
+```
+/api/blogs    [GET, POST] - View/Create blog posts
+/api/blogs/id [GET, PUT]  - Manage specific post
+/api/comments [POST]      - Add comments
+```
+
+## Running the Project
+
+1. Build:
+```
+mvn clean install
+```
+
+2. Start application:
+```
+mvn spring-boot:run
+```
+
+3. Access API at `http://localhost:8080`
+
+## Implementation Notes
+
+- H2 in-memory database for development
+- Flyway for database migrations
+- Input validation on all endpoints
+- Cross-origin resource sharing (CORS) enabled
