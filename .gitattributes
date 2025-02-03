@@ -1,0 +1,16 @@
+* text=auto eol=lf
+*.java text
+*.xml text
+*.md text
+*.properties text
+*.sql text
+*.yml text
+*.yaml text
+
+# Binary files
+*.jar binary
+*.war binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.class binary
